@@ -1,34 +1,38 @@
-const Discord = require("discord.js");
-const dotenv = require("dotenv");
+const fs = require("fs");
 
-dotenv.config();
+const Discord = require("discord.js");
+const { prefix, token } = require("./config.json");
 
 const client = new Discord.Client();
+client.commands = new Discord.Collection();
+
+const commandFiles = fs
+  .readdirSync("./commands")
+  .filter((file) => file.endsWith(".js"));
+
+for (const file of commandFiles) {
+  const command = require(`./commands/${file}`);
+  client.commands.set(command.name, command);
+}
 
 client.on("ready", () => {
   console.log(`Logged in as ${client.user.tag}!`);
 });
 
-client.on("message", async (msg) => {
-  if (msg.content === "ping") {
-    if (msg.member.voice.channel) {
-      const connection = await msg.member.voice.channel.join();
+client.on("message", (message) => {
+  if (!message.content.startsWith(prefix) || message.author.bot) return;
 
-      const dispatcher = connection.play("audio/test.mp3");
+  const args = message.content.slice(prefix.length).trim().split(/ +/);
+  const command = args.shift().toLowerCase();
 
-      dispatcher.on("start", () => {
-        console.log("audio.mp3 is now playing");
-      });
+  if (!client.commands.has(command)) return;
 
-      dispatcher.on("finish", () => {
-        console.log("audio.mp3 has finished playing");
-        connection.disconnect();
-        msg.delete();
-      });
-
-      dispatcher.on("error", console.error);
-    }
+  try {
+    client.commands.get(command).execute(message, args);
+  } catch (error) {
+    console.error(error);
+    message.reply("There was an error trying to execute your command!");
   }
 });
 
-client.login(process.env.TOKEN);
+client.login(token);
