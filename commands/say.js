@@ -13,9 +13,7 @@ module.exports = {
       return;
     }
 
-    try {
-      const dispatcher = connection.play(path);
-    } catch (e) {}
+    const dispatcher = connection.play(path);
 
     dispatcher.on("start", () => {
       console.log("audio.mp3 is now playing");
