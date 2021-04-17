@@ -1,7 +1,9 @@
+const playSound = require("../utils/playSound");
+
 module.exports = {
   name: "emoji-test",
   description: "Emoji!",
-  execute(message, args) {
+  async execute(message, args) {
     message.react("👍").then(() => message.react("👎"));
 
     const filter = (reaction, user) => {
@@ -18,8 +20,10 @@ module.exports = {
 
         if (reaction.emoji.name === "👍") {
           message.reply("You reacted with a thumbs up");
+          playSound(message, "yes");
         } else {
           message.reply("You reacted with a thumbs down");
+          playSound(message, "no");
         }
       })
       .catch((collected) => {
