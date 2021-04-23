@@ -6,6 +6,11 @@ const { prefix, token } = require("./config.json");
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
 
+const state = {
+  isKenify: false,
+  inteval: null,
+};
+
 const commandFiles = fs
   .readdirSync("./commands")
   .filter((file) => file.endsWith(".js"));
@@ -28,7 +33,7 @@ client.on("message", (message) => {
   if (!client.commands.has(command)) return;
 
   try {
-    client.commands.get(command).execute(message, args);
+    client.commands.get(command).execute(state, message, args);
   } catch (error) {
     console.error(error);
     message.reply("There was an error trying to execute your command!");

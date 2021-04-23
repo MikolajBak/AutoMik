@@ -1,7 +1,7 @@
 module.exports = {
   name: "leave",
   description: "Leave the channel",
-  async execute(message, args) {
+  async execute(state, message, args) {
     try {
       message.guild.voice.connection.disconnect();
       message.delete();

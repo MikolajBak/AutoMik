@@ -1,7 +1,7 @@
 module.exports = {
   name: "join",
   description: "Join the channel you're currently in",
-  async execute(message, args) {
+  async execute(state, message, args) {
     try {
       await message.member.voice.channel.join();
       message.delete();

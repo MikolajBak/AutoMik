@@ -3,7 +3,7 @@ const playSound = require("../utils/playSound");
 module.exports = {
   name: "emoji-test",
   description: "Emoji!",
-  async execute(message, args) {
+  async execute(state, message, args) {
     message.react("👍").then(() => message.react("👎"));
 
     const filter = (reaction, user) => {
