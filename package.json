@@ -6,6 +6,6 @@
     "ffmpeg-static": "^4.3.0"
   },
   "scripts": {
-    "start": "npm app.js"
+    "start": "node app.js"
   }
 }
