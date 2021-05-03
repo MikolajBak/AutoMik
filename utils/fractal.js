@@ -32,4 +32,4 @@ const fractal = (width, height, max_iter, zoom) => {
   fs.writeFileSync("./image.png", buffer);
 };
 
-fractal(400, 300, 100, 150);
+module.exports = fractal;
