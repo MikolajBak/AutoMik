@@ -1,3 +1,7 @@
 [
-  { "name": "test", "path": "audio/test.mp3" }
+  { "name": "test", "path": "audio/test.mp3" },
+  { "name": "crawling", "path": "audio/crawling.mp3" },
+  { "name": "tradegy", "path": "audio/tradegy.mp3" },
+  { "name": "mhm", "path": "audio/mhm1.mp3" },
+  { "name": "tight", "path": "audio/tight.mp3" }
 ]

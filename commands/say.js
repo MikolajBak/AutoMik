@@ -5,5 +5,6 @@ module.exports = {
   description: "Says a given command!",
   execute(state, message, args) {
     playSound(message, args[0]);
+    message.delete();
   },
 };
